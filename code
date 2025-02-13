@@ -1,3 +1,14 @@
 import torch
 from transformers import GPT2LMHeadModel, GPT2Tokenizer, AdamW
 from rdkit import Chem
+
+tokenizer = GPT2Tokenizer.from_pretrained()
+model = GPT2LMHeadModel.from_pretrained()
+
+tokenizer.pad_token = tokenizer.eos_token
+
+smiles_data = [
+    "CCO",
+    "CCN(CC)CC",
+    "C1=CC=CC=C1",
+]
