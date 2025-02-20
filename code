@@ -5,7 +5,7 @@ from rdkit import Chem
 tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 model = GPT2LMHeadModel.from_pretrained("gpt2")
 
-tokenizer.pad_token = tokenizer.eos_token # or '[PAD]' if you want to use a separate padding token
+tokenizer.pad_token = tokenizer.eos_token 
 
 smiles_data = [
     "CCO",  # Ethanol
@@ -19,7 +19,7 @@ inputs = tokenizer(smiles_data, return_tensors="pt", padding=True, truncation=Tr
 optimizer = AdamW(model.parameters(), lr=5e-5)
 model.train()
 
-for epoch in range(10):  # Number of epochs
+for epoch in range(10):  
     outputs = model(**inputs, labels=inputs["input_ids"])
     loss = outputs.loss
     loss.backward()
