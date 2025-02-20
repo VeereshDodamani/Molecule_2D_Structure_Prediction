@@ -11,6 +11,7 @@ smiles_data = [
     "CCO",  # Ethanol
     "CCN(CC)CC",  # Triethylamine
     "C1=CC=CC=C1",  # Benzene
+    # Add more SMILES strings
 ]
 
 inputs = tokenizer(smiles_data, return_tensors="pt", padding=True, truncation=True)
@@ -21,7 +22,9 @@ model.train()
 for epoch in range(10):  # Number of epochs
     outputs = model(**inputs, labels=inputs["input_ids"])
     loss = outputs.loss
+    loss.backward()
     optimizer.step()
+    optimizer.zero_grad()
     print(f"Epoch {epoch + 1}, Loss: {loss.item()}")
 
 model.save_pretrained("molgpt_finetuned")
